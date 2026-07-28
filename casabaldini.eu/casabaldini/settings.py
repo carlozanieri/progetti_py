@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+   # "casabaldini.apps.CasabaldiniConfig",
     "beb.apps.BebConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -74,23 +75,13 @@ WSGI_APPLICATION = "casabaldini.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-#DATABASES = {
-#    "default": {
-#        "ENGINE": "django.db.backends.sqlite3",
-#        "NAME": BASE_DIR / "beb/casabaldini.db",
-#    }
-#}
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'casabaldini',
-        'USER': 'carlo',
-        'PASSWORD': 'treX39',
-        'HOST': '57.131.31.228',
-        'PORT': '5432'
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "beb/casabaldini.db",
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

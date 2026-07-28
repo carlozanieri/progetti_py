@@ -7,6 +7,7 @@ import time
 import logging
 import MySQLdb
 import sqlite3
+import psycopg2
 #from tomlkit import datetime
 from datetime import datetime
 #from PyQt5.QtGui import *
@@ -143,10 +144,11 @@ class Connect:
 
         ###cursor = db.cursor()
         ###cursor.execute("SELECT *  from menuweb where livello=2")
-        conn = sqlite3.connect("carlozanieri.db")
+        conn = psycopg2.connect(database="casabaldini", host="casabaldini.eu",user="carlo", password="treX39", port="5432")
+        #conn = sqlite3.connect("carlozanieri.db")
         ###cursor = db.cursor()
-        ###cursor.execute("SELECT *  from menuweb where livello=2")
-        data = conn.execute("SELECT *  from menuweb where livello=2");  
+        ###cursor.execute("SELECT *  from menu where livello=2")
+        data = conn.execute("SELECT *  from menu where livello=2");  
         rows = data.fetchall()
         #rows = cursor.fetchall()
         menu = [dict(id=row[0], codice=row[1],radice=row[2], titolo=row[4], link=row[6]) for row in rows]
@@ -154,12 +156,13 @@ class Connect:
         return menu
 
     def submenu(self, menu):
-        conn = sqlite3.connect("carlozanieri.db")
+        conn = psycopg2.connect(database="casabaldini", host="casabaldini.eu",user="carlo", password="treX39", port="5432")
+        #conn = sqlite3.connect("carlozanieri.db")
         #db = MySQLdb.connect(options.mysql_host, options.mysql_user, options.mysql_password, options.mysql_database)
         ##print(menu)
         #cursor = db.cursor()
-        data = conn.execute("SELECT *  from menuweb where livello=3 and radice = '" + menu + "'")
-        #cursor.execute("SELECT *  from menuweb where livello=3 and radice = '" + menu + "'")
+        data = conn.execute("SELECT *  from menu where livello=3 and radice = '" + menu + "'")
+        #cursor.execute("SELECT *  from menu where livello=3 and radice = '" + menu + "'")
 
         submenu = data.fetchall()
         #menu = primanota[1]["descrizione"]
