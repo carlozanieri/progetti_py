@@ -1,0 +1,11 @@
+<h1>{{ entries.title }}</h1>
+<ul>
+{% for entries in entries.entries.choice_set.all %}
+    <li>{{ entries.title  }}</li>
+{% endfor %}
+
+{% for menuweb in menuweb.all %}
+    <li>{{ menuweb.descrizione  }}</li>
+{% endfor %}
+</ul>
+

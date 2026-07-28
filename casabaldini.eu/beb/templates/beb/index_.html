@@ -1,0 +1,16 @@
+{% if entries %}
+    <ul>
+    {% for entrie in entries %}
+        <li><a href="/beb/{{ entries.id }}/">{{ entrie.author_id }} {{ " - "}} {{ entrie.title }}</a></li>
+        
+    {% endfor %}
+    </ul>
+    
+    <ul>
+    {% for menuweb in menuweb.all %}
+    <li>{{ menuweb.descrizione  }}</li>
+{% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}

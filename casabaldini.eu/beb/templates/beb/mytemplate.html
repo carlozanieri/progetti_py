@@ -1,0 +1,23 @@
+{% if pag == "master" %}
+{% extends "master.html" %}
+
+{% elif pag == "blog"  %}
+{% extends "blogmaster.html" %}
+{% elif pag == "blogs_one" %}
+{% extends "blogs_one.html" %}
+{% elif pag == "menu" %}
+{% extends "menu5.html" %}
+{% elif pag == "django" %}
+{% extends "carlozanieri_django.html" %}
+
+{% else %}
+{% extends "master.html" %}
+{% endif %}
+
+{% block content %}
+
+<div class="content">
+
+</div>
+{% endblock content %}
+
