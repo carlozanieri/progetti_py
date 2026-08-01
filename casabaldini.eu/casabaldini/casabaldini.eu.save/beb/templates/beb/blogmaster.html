@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+
+	<title>casabaldini.it {{urlx}}</title>
+  <meta name="author" content="Carlo Zanieri"/>
+  <link rel="shortcut icon" href="/static/favicon.ico"/>
+  <script src="/static/js/jquery.js"></script>
+  <script type="text/javascript" src="/static/blogs/js/responsiveCarousel.js"></script>  
+ 
+	<script src="/static/menu_6/js/modernizr.custom.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/menu_6/css/default.css" />
+  <link rel="stylesheet" type="text/css" media="all" href="/static/blogs/css/styles.css"/>
+  
+ 
+<style>
+  .content { margin:50px auto; max-width:1660px; line-height:1.7}
+  </style>
+</head>
+
+<body>
+  
+    {% include 'menu5.html' %}
+    
+    <div id="w" Style="margin-left:17%; margin-right:17%;margin-top:-9%;">
+      <iframe  scrolling="no" width="100%" height="500 px" src="/slide?luogo={{luogo}}" frameborder="0" style=" margin-top:-24%; margin-left:-10%;margin-right:-15%;"></iframe>
+      <nav class="slidernav">
+        <div id="navbtns" class="clearfix">
+          <a href="#" class="previous">prev</a>
+          <a href="#" class="next">next</a>
+        </div>
+      </nav>
+    
+    <div class="crsl-items" data-navigation="navbtns" >
+      
+      <div class="crsl-wrap" >
+       {% for productss in products %}
+        <div class="crsl-item">
+          <div class="thumbnail">
+           
+            
+            
+            <img   class="zoom" src= "static/blogs/img/{{productss.img}}" alt="{{productss.img}}"/>
+          </div>
+          <a href="/blogs_one?titolo={{productss.title}}&amp;blogid={{productss.id}}"><span class="postdate">{{productss.title}}</span></a>
+          <!--<h3><a href="/blogs_one?titolo={{productss.title}}&amp;blogid={{productss.id}}">{{productss.title}}</a></h3>-->
+
+          <p>{{productss.html2}}</p>
+          <form action="blogs_one" method="post" accept-charset="utf-8" enctype="multipart/form-data" target="_parent">
+            <input id="titolo" name="titolo" type="hidden" value="{{productss.title}}" />
+            <input id="blogid" name="blogid" type="hidden" value="{{productss.id}}" />
+            <input id="pag" name="pag" type="hidden" value="blogs_one" />
+            <input type="submit" value="Dettaglio" />
+          </form>
+          <form action="/upload_form" method="post" accept-charset="utf-8" enctype="multipart/form-data" target="_parent">
+            <input id="titolo" name="titolo" type="hidden" value="{{productss.title}}" />
+            <input id="id" name="blogid" type="hidden" value="{{productss.id}}" />
+            
+            <input type="submit" value="Add to Cart" />
+          </form>
+         
+          <!--<p class="readmore"><a href="http://localhost/?pag=blogs_one&amp;titolo={{productss.title}}&amp;blogid={{productss.id}}"  target="_parent">Read More</a></p> -->
+        </div>
+      {% endfor %}
+
+    </div><!-- @end .crsl-wrap -->
+      <link href="https://fonts.googleapis.com/css?family=Exo+2:300,400" rel="stylesheet"/>
+      
+    </div><!-- @end .crsl-items -->
+  </div><!-- @end #w --> 
+    <script type="text/javascript">
+      $(function(){
+        $('.crsl-items').carousel({
+          visible: 5,
+          itemMaxWidth: 100,
+          itemEqualHeight: 100,
+          itemMargin: 9,
+        });
+      
+        $("a[href=#]").on('click', function(e) {
+          e.preventDefault();
+        });
+      });
+      </script>
+      <script type="text/javascript">
+        $("a[href=#]").on('click', function(e) {
+          e.preventDefault();
+        });
+      
+      </script>  
+  
+  
+	
+</body>
+ 
+</html>

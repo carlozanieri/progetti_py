@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" >
+	{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <title>casabaldini.eu</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN"> 
+  <link rel="stylesheet" type="text/css" href="{% static 'beb/menu_6/css/default.css'%}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'beb/menu_6/css/component.css'%}" />
+		
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css'/>
+  <link rel="stylesheet" type="text/css" href="{% static 'beb/home/dist/css/style.css'%}" />
+ 
+  <script type="text/javascript">
+  $(document).ready(function() {
+	$('.carousel').carousel({
+		width: 480,
+		height: 250,
+		arrows: true,
+		buttons: false,
+		waitForLayers: true,
+		thumbnailWidth: 100,
+		thumbnailHeight: 50,
+		thumbnailPointer: true,
+		autoplay: true,
+		autoScaleLayers: true,
+		breakpoints: {
+			500: {
+				thumbnailWidth: 60,
+				thumbnailHeight: 25
+			}
+		}
+	});
+});
+</script>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="carousel" >
+	{% for sliders in slider %}
+	<div class="carousel-item"  style="text-align: justify;  color:#7e342d; margin-right:7%;margin-left:-7%;">
+
+		<img  src= "{% static 'beb/img/'%}{{luogo}}/{{sliders.img}}" alt="" title="{{sliders.titolo}}" />
+		<h3>
+			{{sliders.titolo}}
+		</h3>
+	</div>
+	{% endfor %}
+	
+</div>
+</div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'></script>
+<script  src="{% static 'beb/home/dist/js/script.js'%}"></script>
+
+</body>
+</html>

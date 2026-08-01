@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>casabaldini.eu</title>
+ <!-- <link rel="stylesheet" href="{% static 'beb/Blue-Slider-master/css/blue-slider.min.css'%}"/>-->
+  <link rel="stylesheet" href="{% static 'beb/Blue-Slider-master/css/fontello.css'%}"/>
+  <link rel="stylesheet" href="{% static 'beb/Blue-Slider-master/css/style.min.css'%}"/>
+  <link rel="stylesheet" href="{% static 'beb/Blue-Sabsolutelider-master/css/style.css'%}"/>
+  <meta name="author" content="Carlo Zanieri" />
+	
+	<link rel="stylesheet" type="text/css" media="all" href="{% static 'beb/news/css/styles.css'%}"/>
+  <script src="{% static 'beb/js/jquery.js'%}"></script>
+	<script src="{% static 'beb/menu_6/js/modernizr.custom.js'%}"></script>
+	<link rel="shortcut icon" href="{% static 'beb/favicon.ico'%}"/> 
+
+</head>
+
+<body>
+ 
+  <div class="slider-container first-sample">
+   
+    {% for sliders in slider %} 
+    <div class="slider">
+       
+      <div class="item">   
+      <img style= " width: 70%; margin-top: 10%; "  src= "{% static 'beb/img/'%}{{luogo}}/{{sliders.img}}" alt="" title="{{sliders.caption}}" />
+      </div>
+            
+    </div>
+    {% endfor %}
+    <i class="left-open-big-icon prev-slide"></i>
+    <i class="right-open-big-icon next-slide"></i> 
+  </div>
+  <span style="position: absolute; top: -3.3%;	left:-3% ; bottom: 5%;">{% include 'beb/menu5.html' %}</span> 
+  
+  <script src="{% static 'beb/Blue-Slider-master/js/jquery-3.3.1.min.js'%}"></script>
+  <script src="{% static 'beb/Blue-Slider-master/js/blue-slider.js'%}"></script>
+  <script src="{% static 'beb/Blue-Slider-master/js/script.js'%}"></script>
+  
+</body>
+
+</html>

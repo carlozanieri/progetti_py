@@ -1,0 +1,7 @@
+*.log
+img/*
+*.zip
+logs
+logs/*
+/logs
+__pycache__/

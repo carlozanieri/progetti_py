@@ -1,0 +1,25 @@
+INSERT INTO beb_menuweb (
+                            codice,
+                            radice,
+                            livello,
+                            titolo,
+                            descrizione,
+                            link,
+                            attivo,
+                            icon,
+                            workplace,
+                            param1,
+                            ordine
+                        )
+                        VALUES('chisiamo','chisiamo',3,'Chi Siamo','Chi Siamo','/chisiamo',1,'ui-icon-document',402220400,'pub',16),
+	 ('streaming','contatti',3,'View Streaming','View streaming','/selectviewstreaming/',1,'ui-icon-document',402220600,'pub',17),
+	 ('serverstream','contatti',3,'ServerStreaming','Server streaming','/selectstreaming/',1,'ui-icon-document',402220600,'priv',18),
+	 ('mangiare','turismo',3,'Dove Mangiare','Dove Mangiare','/mangiare',1,'ui-icon-document',402221400,'pub',19),
+	 ('dormire','turismo',3,'Dove Dormire','Dove Dormire','/dormire',1,'ui-icon-document',402221400,'pub',20),
+	 ('login','home',3,'Login','Login','/login',1,'ui-icon-document',402221400,'pub',21),
+	 ('logout','home',3,'logout','logout','logout',1,'ui-icon-document',402221400,'pub',22),
+	 ('admin','admin',2,'Amministrazione','Amministrazione','admin',1,'ui-icon-document',402221400,'priv',23),
+	 ('insmanif','admin',3,'Inserisce Manifestazione','Inserisce Manifestazione','/ins_manifestazioni',1,'ui-icon-document',402221400,'priv',24),
+	 ('insnews','admin',3,'Inserisce News','Inserisce News','/ins_news',1,'ui-icon-document',402221400,'priv',25);
+                        
+	 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+
+	<title>casabaldini.it {{urlx}}</title>
+  <meta name="author" content="Carlo Zanieri"/>
+  <link rel="shortcut icon" href="/static/favicon.ico"/>
+  <script src="static/js/jquery.js"></script>
+  <script type="text/javascript" src="static/blogs/js/responsiveCarousel.js"></script>  
+ 
+	<script src="static/menu_6/js/modernizr.custom.js"></script>
+	<link rel="stylesheet" type="text/css" href="static/menu_6/css/default.css" />
+  <link rel="stylesheet" type="text/css" media="all" href="static/blogs/css/styles.css"/>
+  
+ 
+<style>
+  .content { margin:50px auto; max-width:728px; line-height:1.7}
+  </style>
+</head>
+
+
+<body>
+  
+  {% include 'menu5.html' %}
+<h1>{{titolo}}</h1>
+  <div id="w" style="margin-left:10%;margin-right:10%;margin-top:-21%; max-width: 20%; max-height: 20%;">
+
+
+
+    <div class="crsl-items" data-navigation="navbtns" >
+      
+      <div class="crsl-wrap">
+       
+        {% for blogss in blogo %}
+       
+        
+        <div class="crsl-item">
+          
+          <div class="thumbnail">
+            <a  href="#" class="postdate"> {{blogss.title}}</a> 
+            <img class="zoom" src= "static/blogs/img/{{blogss.img}}" alt="{{blogss.img}}"/>
+            
+           
+          </div>
+          
+          
+          <p>{{blogss.html}}</p>
+
+            <form action="add_cart" method="post" accept-charset="utf-8" enctype="multipart/form-data" target="_parent">
+              <input id="titolo" name="titolo" type="hidden" value="{{blogss.title}}" />
+              <input id="id" name="blogid" type="hidden" value="{{blogss.id}}" />
+              
+              <input type="submit" value="Add to Cart" />
+            </form>
+          <p class="readmore">
+           
+            <a href="/">Go Back &raquo;</a></p>
+        </div><!-- post #1 -->
+        
+        {%endfor%}
+        
+      </div><!-- @end .crsl-wrap -->
+    </div><!-- @end .crsl-items -->
+
+  </div><!-- @end #w -->
+<script type="text/javascript">
+$(function(){
+  $('.crsl-items').carousel({
+    visible: 1,
+    itemMinWidth: 0,
+    itemEqualHeight: 0,
+    itemMargin: 0,
+  });
+
+  $("a[href=#]").on('click', function(e) {
+    e.preventDefault();
+  });
+});
+</script>
+
+</body>
+
+</html>
