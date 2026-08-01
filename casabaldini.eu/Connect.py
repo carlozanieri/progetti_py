@@ -143,7 +143,7 @@ class Connect:
         ###db = MySQLdb.connect(options.mysql_host, options.mysql_user, options.mysql_password, options.mysql_database)
 
         ###cursor = db.cursor()
-        ###cursor.execute("SELECT *  from menuweb where livello=2")
+        ###cursor.execute("SELECT *  from Menu where livello=2")
         conn = psycopg2.connect(database="casabaldini", host="casabaldini.eu",user="carlo", password="treX39", port="5432")
         #conn = sqlite3.connect("carlozanieri.db")
         ###cursor = db.cursor()
@@ -172,8 +172,8 @@ class Connect:
         db = MySQLdb.connect(options.mysql_host, options.mysql_user, options.mysql_password, options.mysql_database)
         ##print(menu)
         cursor = db.cursor()
-        cursor.execute("SELECT *  from menuweb where livello=3 ")
-        data = conn.execute("SELECT *  from menuweb where livello=3 ")
+        cursor.execute("SELECT *  from Menu where livello=3 ")
+        data = conn.execute("SELECT *  from Menu where livello=3 ")
         rows = data.fetchall()
         submenu = [dict(id=row[0], codice=row[1],radice=row[2], titolo=row[4], link=row[6]) for row in rows]
         return submenu
@@ -183,7 +183,7 @@ class Connect:
         db = MySQLdb.connect(options.mysql_host, options.mysql_user, options.mysql_password, options.mysql_database)
         ##print(menu)
         cursor = db.cursor()
-        cursor.execute("SELECT *  from menuweb where livello=4 ")
+        cursor.execute("SELECT *  from Menu where livello=4 ")
 
         rows = cursor.fetchall()
         submenu2 = [dict(id=row[0], radice=row[2], titolo=row[4], link=row[6]) for row in rows]

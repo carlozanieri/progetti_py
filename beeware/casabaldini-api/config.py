@@ -8,7 +8,7 @@ DB_USER = "carlo"
 DB_PASSWORD = "treX39"
 
 # URL di connessione completo
-DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+DATABASE_URL = f"postgresql://{carlo}:{treX39}@{57.131.31.228}:{5432}/{casabaldini}"
 
 # Porta su cui gira l'API
 API_PORT = 3333

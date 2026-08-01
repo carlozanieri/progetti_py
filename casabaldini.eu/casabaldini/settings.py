@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-   # "casabaldini.apps.CasabaldiniConfig",
     "beb.apps.BebConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -39,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+
 ]
 
 MIDDLEWARE = [
@@ -75,10 +76,24 @@ WSGI_APPLICATION = "casabaldini.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+#DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.sqlite3",
+#        "NAME": BASE_DIR / "beb/casabaldini.db",
+#    }
+#}
+# Source - https://stackoverflow.com/a/50323012
+# Posted by R.yan, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-07-28, License - CC BY-SA 4.0
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "beb/casabaldini.db",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'casabaldini',
+        'USER': 'carlo',
+        'PASSWORD': 'treX39',
+        'HOST': '57.131.31.228',
+        'PORT': '5432',
     }
 }
 

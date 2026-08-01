@@ -37,17 +37,17 @@
             <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
             <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
              
-                {% for menuwebs in menuweb %}
+                {% for menus in menu %}
                 <li>
                     
                     <a href="javascript:;">
                            
-                       <span class="title">{{menuwebs.titolo}} </span>
+                       <span class="title">{{menus.titolo}} </span>
                         
                   
                     {% for submenus in submenu %}
                     
-                    {% if menuwebs.codice == submenus.radice %}
+                    {% if menus.codice == submenus.radice %}
                     
                      {% ifchanged %}
                         <span class="arrow"></span>
@@ -62,11 +62,11 @@
                     
                     <ul>
                         {% for submenus in submenu %} 
-                            {% if menuwebs.codice == submenus.radice %}
+                            {% if menus.codice == submenus.radice %}
                                 
                                 <li>
                                 
-                                 <a href="{{submenus.link}}" >{{submenus.titolo}}</a>
+                                 <a href="{{submenus.icon}}" >{{submenus.titolo}}</a>
                                  </a>                            
                                 </li>
                             {% endif %}

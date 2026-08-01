@@ -109,7 +109,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name="Menuweb",
+            name="Menu",
             fields=[
                 (
                     "id",
