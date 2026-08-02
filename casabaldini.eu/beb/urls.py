@@ -4,8 +4,9 @@ from . import views
 #app_name = "beb"
 
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("", views.home, name="home"),
     path("home", views.home, name="home"),
+    path("immagini", views.immagini, name="immagini"),
     path("<int:author_id>/", views.detail, name="detail"),
     path("slide", views.slide, name="slide"),
     path("slide2", views.slide2, name="slide2"),

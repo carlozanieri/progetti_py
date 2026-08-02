@@ -6,6 +6,8 @@ from .models import Entries
 from .models import Slider
 from .models import Menu
 from .models import Submenu
+
+
 def home(request):
     luogo = "index"
     entries = Entries.objects.filter(slug=luogo)
@@ -18,9 +20,25 @@ def home(request):
     carousel = "slide"
     context = {"entries": entries, "menu": menu, "submenu": submenu, "slider": slider, "links": links, "luogo": luogo, "carousel":carousel}
    
-    return render(request, "beb/index.html", context)
+    return render(request, "beb/home.html", context)
+
 
 def index(request):
+    luogo = "index"
+    entries = Entries.objects.filter(slug=luogo)
+    menu = Menu.objects.filter(livello=2, attivo=1).order_by('ordine' , 'codice')
+    submenu = Submenu.objects.filter(livello=3, attivo=1).order_by('ordine', 'radice')
+    slider = Slider.objects.filter(codice=luogo)
+    links = Links.objects.all()[:]
+    #slider = Connect.slider("", "mugello")
+    #luogo = request.GET.get('luogo')
+    carousel = "slide"
+    context = {"entries": entries, "menu": menu, "submenu": submenu, "slider": slider, "links": links, "luogo": luogo, "carousel":carousel}
+   
+    return render(request, "beb/home.html", context)
+
+
+def immagini(request):
     luogo = "index"
     entries = Entries.objects.filter(slug=luogo)
     menu = Menu.objects.filter(livello=2, attivo=1).order_by('ordine' , 'codice')
@@ -52,6 +70,7 @@ def slide(request):
     context = {"slider": slider, "luogo": luogo, "camere": camere}
     #return render(request, "beb/nivo.html", context)
     return render(request, "beb/home/home.html", context)
+
 
 def slide2(request):
     luogo = request.GET.get('luogo')

@@ -333,7 +333,7 @@ ul[data-menu-style="vertical"] li a:hover {
     li.menu-active > a > .arrow:before {
     content: " \276F";
     font-weight: 300;
-    text-shadow: none
+    text-shadow: none;
     width: 10px;
     display: inline-block;
 	transform: rotate(90deg);

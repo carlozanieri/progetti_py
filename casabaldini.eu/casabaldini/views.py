@@ -5,6 +5,8 @@ from .models import Food, Links
 from .models import Entries
 from .models import Slider
 from .models import Menu
+
+
 def home(request):
     luogo = "index"
     entries = Entries.objects.filter(slug=luogo)
@@ -17,7 +19,7 @@ def home(request):
     carousel = "slide"
     context = {"entries": entries, "Menu": Menu, "submenu": submenu, "slider": slider, "links": links, "luogo": luogo, "carousel":carousel}
    
-    return render(request, "beb/index.html", context)
+    return render(request, "beb/home.html", context)
 
 def index(request):
     luogo = "index"
