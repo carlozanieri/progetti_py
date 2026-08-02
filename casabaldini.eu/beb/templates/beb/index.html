@@ -25,8 +25,11 @@
 </span>
 <body class="flex-container" style="background-image:url({% static 'beb/bg.png'%}); background-repeat:repeat;">
 {% block content %}
- 
-<iframe  scrolling="no" width="100%" height="100%" src="/beb/{{carousel}}?luogo={{luogo}}" frameborder="0" style="position: absolute; margin-left:-0.5% ; top: 150px;"></iframe>
+ <span class="flex-container" style=" position: absolute; margin-top:0.5%; margin-left:38%; margin-right:20%; ">
+<img  src="{% static 'beb/img/'%}logo.jpg" width="40%" height="40%"  alt=""/>	
+</span>
+<iframe  scrolling="no" width="100%" height="100%" src="/beb/{{carousel}}?luogo={{luogo}}" frameborder="0" style="position: absolute; margin-top:10% ; <img  src="{% static 'beb/img/'%}logo.jpg" width="40%" height="40%"  alt=""/>	
+;"></iframe>
 
 {% endblock content %}
 
