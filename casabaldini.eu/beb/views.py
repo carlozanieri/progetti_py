@@ -82,6 +82,15 @@ def slide2(request):
     #return render(request, "beb/nivo.html", context)
     return render(request, "beb/home/home.html", context)
 
+def boot(request):
+    luogo = request.GET.get('luogo')
+    ##slider = Slider.objects.all()[:]
+    slider = Slider.objects.filter(codice2=luogo)[:]
+    camere = Slider.objects.filter(codice2="camere")[:]
+    #slider = Connect.slider("", "mugello")
+    context = {"slider": slider, "luogo": luogo, "camere": camere}
+    #return render(request, "beb/nivo.html", context)
+    return render(request, "beb/boot.html", context)
 
 def blueslider(request):
     luogo = request.GET.get('luogo')
