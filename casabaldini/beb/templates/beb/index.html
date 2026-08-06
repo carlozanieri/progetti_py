@@ -13,27 +13,7 @@
 	</marquee>	
 	</div>
 {% endblock header %}-->
-{% block footer %}
-<div class="marquee-container">
-    <div class="marquee-content">
-        {% for link in links %}
-            <a href="{{ link.link }}">
-                <img src="{% static 'beb/img/links/' %}{{ link.img }}"
-                     width="{{ link.width }}" height="{{ link.height }}" alt=""/>
-                {{ link.titolo }}
-            </a>
-        {% endfor %}
-        <!-- Duplica i link per loop continuo -->
-        {% for link in links %}
-            <a href="{{ link.link }}">
-                <img src="{% static 'beb/img/links/' %}{{ link.img }}"
-                     width="{{ link.width }}" height="{{ link.height }}" alt=""/>
-                {{ link.titolo }}
-            </a>
-        {% endfor %}
-    </div>
-</div>
-{% endblock footer %}
+
 <span class="flex-container" style=" position: absolute; margin-top:10%; margin-left:15%; margin-right:15%; background-color: #2c0404;">
 
 </span>
