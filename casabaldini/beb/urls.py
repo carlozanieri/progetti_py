@@ -24,6 +24,4 @@ urlpatterns = [
     path("boot", views.boot, name="boot"),
     path("prenotazioni", views.prenotazioni, name="prenotazioni"),
     path("dovemangiare", views.dovemangiare, name="dovemangiare"),
-   
-   
 ]

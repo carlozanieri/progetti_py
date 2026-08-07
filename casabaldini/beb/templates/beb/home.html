@@ -19,26 +19,20 @@
         </div>
     </div>
 </div>
-{% endblock content %}
+{% endblock %}
 
 {% block footer %}
-<div class="marquee-container">
-    <div class="marquee-content">
+<div class="container-fluid py-2">
+    <marquee direction="right" scrollamount="10"
+             onMouseOver="this.stop()" onMouseOut="this.start()"
+             class="text-white">
         {% for link in links %}
-            <a href="{{ link.link }}">
+            <a href="{{ link.link }}" class="text-white text-decoration-none mx-3 fw-bold">
                 <img src="{% static 'beb/img/links/' %}{{ link.img }}"
                      width="{{ link.width }}" height="{{ link.height }}" alt=""/>
-                {{ link.titolo }}
+                &nbsp; {{ link.titolo }}
             </a>
         {% endfor %}
-        <!-- Duplica i link per loop continuo -->
-        {% for link in links %}
-            <a href="{{ link.link }}">
-                <img src="{% static 'beb/img/links/' %}{{ link.img }}"
-                     width="{{ link.width }}" height="{{ link.height }}" alt=""/>
-                {{ link.titolo }}
-            </a>
-        {% endfor %}
-    </div>
+    </marquee>
 </div>
-{% endblock footer %}
+{% endblock %}
