@@ -108,3 +108,17 @@ body{
     width: 1170px;
   }
 }
+
+marquee a {
+    color: #fff;
+    font-size: clamp(0.9em, 2vw, 1.5em);
+    font-weight: bold;
+    margin-left: 2%;
+    white-space: nowrap;
+}
+
+marquee a img {
+    height: clamp(20px, 3vw, 30px);
+    width: auto;
+    vertical-align: middle;
+}
