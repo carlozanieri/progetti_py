@@ -92,21 +92,21 @@
 </style>
 {% load static %}
 
-<div class="popin" style="background-image:url({% static 'beb/bg.png'%}); background-repeat:repeat;">    
+<div class="popin" style="background-image:url({% static 'beb/bgblack.png'%}); background-repeat:repeat;">    
     <input id="popin_check_1" type="checkbox" class="popin_check" hidden checked="true" />
     <label class="layer fadeIn" for="popin_check_1"></label>
-    <div class="content fadeIn" style="background-image:url({% static 'beb/bg.png'%}); background-repeat:repeat;">
-        <div class="header">Prenotazioni<label class="close_popin" for="popin_check_1">X</label></div>
+    <div class="content fadeIn" style="background-image:url({% static 'beb/bgblack.png'%}); background-repeat:repeat;">
+        <div class="header" style=" color:#ffffff;">Prenotazioni<label class="close_popin" for="popin_check_1">X</label></div>
         <div class="main">
            
 		
-	     <img  style="width: 10%; color:#000000; font-size: 1.5em; margin-left:2%; margin-top:5%; font-weight: bold;" src="{% static 'beb/img/telefono_4.jpg'%}"> Telefonando al <b>+39 3207060411 </b></img>
+	     <img  style="width: 10%; color:#ffffff; font-size: 1.5em; margin-left:2%; margin-top:5%; font-weight: bold;" src="{% static 'beb/img/telefono_4.jpg'%}">  <span style=" color:#ffffff;"> Telefonando al :  </span><b style=" color:#ffffff; font-size: 1.1em;" > +39 3207060411 </b></img>
          <br>
-         <img  style="width: 10%; color:#000000; font-size: 1.5em; margin-left:2%; margin-top:5%; font-weight: bold;" src="{% static 'beb/img/email_3.jpg'%}"> Inviando un E-Mail a <b>bruna.bbaldini@gmail.com </b></img>
+         <img  style="width: 10%; color:#ffffff; font-size: 1.5em; margin-left:2%; margin-top:5%; font-weight: bold;" src="{% static 'beb/img/email_3.jpg'%}"> <span style=" color:#ffffff; ">Inviando un E-Mail a : </span><b style=" color:#ffffff; font-size: 1.1em;" > bruna.bbaldini@gmail.com </b></img>
 
         <!--<label class="modal-button close" for="popin_check_1">Close</label>-->
     </div>
-     <a class="modal-button" href="/">HOME</a>
+     <a class="modal-button" href="/" style=" color:#ffffff;">HOME</a>
 </div>
 
 
