@@ -1,4 +1,4 @@
-
+{% load static %}
 <style>
 .popin{
     position: absolute;
@@ -15,6 +15,7 @@
     bottom: 0;
     right: 0;
     background: rgba(0,0,0,0.5);
+    background-image:url({% static 'beb/bgblack.png'%}); background-repeat:repeat;
     z-index: -1;
     visibility:hidden;
     opacity:0;
