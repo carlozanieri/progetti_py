@@ -216,7 +216,7 @@ def prenotazioni(request):
     links = Links.objects.all()[:]
     slider = Slider.objects.filter(codice=luogo)[:]
     context = {"entries": entries, "Menu": Menu, "submenu": submenu, "links": links,  "luogo": luogo, "slider": slider}
-    return render(request, "beb/prenotazioni.html", context)
+    return render(request, "beb/prenota.html", context)
 
 def dovemangiare(request):
     #luogo = request.GET.get('luogo')
