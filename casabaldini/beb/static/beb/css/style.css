@@ -101,6 +101,9 @@ marquee a img {
     vertical-align: middle;
 }
 
+a:hover {
+  color: #013901;
+}
 /* ==================== RESPONSIVE IMMAGINI ==================== */
 img {
     max-width: 40%;

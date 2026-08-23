@@ -1,8 +1,6 @@
 {% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
 <style>
-  a:hover {
-  color: #013901;
-}   
 .popin{
     position: absolute;
     top: 0;
@@ -18,14 +16,14 @@
     bottom: 0;
     right: 0;
     background: rgba(0,0,0,0.5);
-    background-image:url({% static 'beb/bgblack.png'%}); background-repeat:repeat;
     z-index: -1;
+    background-image:url({% static 'beb/bgblack.png'%}); background-repeat:repeat;
     visibility:hidden;
     opacity:0;
     transition: all 0.5s;
 }
 .popin .content{
-    max-width: 850px;
+    max-width: 900px;
     width: 100%;
     box-sizing: border-box;
     margin: auto;
@@ -69,7 +67,7 @@
   padding: 10px 15px;
   background-color: #5ec792;
   border: none;
-  color: #000;
+  color: #ffffff;
   font-size: 1.0rem;
   font-weight: bold;
   cursor: pointer;
@@ -93,24 +91,38 @@
   0% {opacity: 0;}
   100% {opacity: 1;}
   } 
+ a:hover {
+  color: #013901;
+}
+.zoom {
+ 
+   background-color:white;
+   transition: transform .2s; /* Animation */
+ 
+   margin: 0 auto;
+ }
+
+ .zoom:hover {
+   transform: scale(5.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+ }
 </style>
-{% load static %}
 
 <div class="popin" style="background-image:url({% static 'beb/bgblack.png'%}); background-repeat:repeat;">    
     <input id="popin_check_1" type="checkbox" class="popin_check" hidden checked="true" />
     <label class="layer fadeIn" for="popin_check_1"></label>
     <div class="content fadeIn" style="background-image:url({% static 'beb/bgblack.png'%}); background-repeat:repeat;">
         <div class="header" style=" color:#ffffff;">Prenotazioni<label class="close_popin" for="popin_check_1">X</label></div>
-        <div class="main">
-           
+               
 		
-	     <img  style="width: 10%; color:#ffffff; font-size: 3em; margin-left:2%; margin-top:5%; font-weight: bold;" src="{% static 'beb/img/telefono_4.jpg'%}">  <span style=" color:#ffffff; font-size: 1.5em;"> Telefonando al :  </span><b style=" color:#ffffff; font-size: 2.5em;" > +39 3207060411 </b></img>
+	     <img class="zoom" style="width: 10%; color:#ffffff; font-size: 3em; margin-left:2%; margin-top:5%; font-weight: bold;" src="{% static 'beb/img/telefono_4.jpg'%}">  <span style=" color:#ffffff; font-size: 1.5em;"> Telefonando al :  </span><b style=" color:#ffffff; font-size: 2.5em;" > +39 3207060411 </b>
          <br>
-         <img  style="width: 10%; color:#ffffff; font-size: 3em; margin-left:2%; margin-top:5%; font-weight: bold;" src="{% static 'beb/img/email_3.jpg'%}"> <span style=" color:#ffffff; font-size: 1.5em;">Inviando un E-Mail a : </span><b style=" color:#ffffff; font-size: 2.5em;" > bruna.bbaldini@gmail.com </b></img>
-
-        <!--<label class="modal-button close" for="popin_check_1">Close</label>-->
+         <img class="zoom" style="width: 10%; color:#ffffff; font-size: 3em; margin-left:2%; margin-top:5%; font-weight: bold;" src="{% static 'beb/img/email_3.jpg'%}"> <span style=" color:#ffffff; font-size: 1.5em;">Inviando un E-Mail a : </span><b style=" color:#ffffff; font-size: 2.5em;" > bruna.bbaldini@gmail.com </b>
+        
+        <br>
+        <a class="modal-button" href="/" style=" color:#ffffff;">Torna alla HOME</a>
+        </div>
     </div>
-     <a class="modal-button" href="/" style=" color:#ffffff;">Torna alla HOME</a>
+     
 </div>
 
 
