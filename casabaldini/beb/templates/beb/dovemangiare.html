@@ -114,10 +114,12 @@
         <div class="header" style=" color:#ffffff;">Dove Mangiare<label class="close_popin" for="popin_check_1">X</label></div>
         <div class="main">
         {% for food in foods %}
+        <br>
 		{% if food.titolo != "" %}
 	    <a style="width: 100%; color:#ffffff; font-size: 1em; margin-left:2%; margin-top:5%;" href="{{food.link}}"> <img class="zoom" src="{% static 'beb/img/ristoranti/'%}{{food.img}}" width={{food.width}} height={{food.height}} alt=""/>&nbsp; {{food.titolo}} &nbsp;-&nbsp; {{food.indirizzo}} &nbsp; {{food.telefono}} &nbsp; ({{food.apiedi}}) </a>
-		{% endif %}
-        <br>	
+		<br>
+        {% endif %}
+        	
 	    {% endfor %} 
         <br>
         <p style=" color:#ffffff;">I locali contrassegnati da (**) sono raggiungibili a piedi da Casa Baldini</p>
