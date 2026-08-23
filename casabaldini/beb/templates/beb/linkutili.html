@@ -1,4 +1,135 @@
-<!DOCTYPE html>
+{% load static %}
+<style>
+a:hover {
+  color: #013901;
+}
+.popin{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-family: 'arial', sans-serif;
+}
+.popin .layer{
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+    background-image:url({% static 'beb/bgblack.png'%}); background-repeat:repeat;
+    visibility:hidden;
+    opacity:0;
+    transition: all 0.5s;
+}
+.popin .content{
+    max-width: 680px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 8px;
+    background: #fff;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    visibility:hidden;
+    opacity:0;
+    transition: all 0.5s;
+}
+.popin .popin_check:checked ~ .layer,
+.popin .popin_check:checked ~ .content{
+    visibility:visible;
+    opacity:1;
+    margin-top:0;
+}
+.popin .content .header{
+    padding: 5px;
+    min-height: 1.5em;
+    border-bottom: 1px solid;
+}
+.popin .close_popin{
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+}
+.popin .content .main{
+    padding: 5px 0;
+}
+.show_popin{
+    cursor: pointer;
+}
+.modal-button {
+    float: right; 
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #5ec792;
+  border: none;
+  color: #ffffff;
+  font-size: 1.0rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close {
+    float: right;
+}
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 3s;
+  animation-duration: 3s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  }
+  @-webkit-keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+  }
+  @keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+  } 
+a:hover {
+  color: #013901;
+}
+.zoom {
+ 
+   background-color:white;
+   transition: transform .2s; /* Animation */
+ 
+   margin: 0 auto;
+ }
+ 
+ .zoom:hover {
+   transform: scale(5.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+ }
+</style>
+{% load static %}
+
+<div class="popin" style="background-image:url({% static 'beb/bgblack.png'%}); background-repeat:repeat;">    
+    <input id="popin_check_1" type="checkbox" class="popin_check" hidden checked="true" />
+    <label class="layer fadeIn" for="popin_check_1"></label>
+    <div class="content fadeIn" style="background-image:url({% static 'beb/bgblack.png'%}); background-repeat:repeat;">
+        <div class="header" style=" color:#ffffff;">Links Utili<label class="close_popin" for="popin_check_1">X</label></div>
+        <div class="main">
+        {% for link in links %}
+		
+				<a style="color:#fff; font-size: 1.5em; margin-left:2%; margin-top:5%;  font-weight: bold;" href="{{link.link}}"> <img class="zoom" src="{% static 'beb/img/links/'%}{{link.img}}" width={{link.width}} height={{link.height}} alt=""/>&nbsp; {{link.titolo}} </a>
+			<br><br>
+		{% endfor %} 
+    </div>
+<a class="modal-button" href="/">Torna alla HOME</a>	
+</div>
+
+
+
+
+
+<!--<!DOCTYPE html>
 
 <html lang="en">
 	{% load static %}
@@ -6,7 +137,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
-   <!-- <meta name="viewport" content="width=device-width, initial-scale=1"/> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"/> 
 	<meta http-equiv="X-Frame-Options" content="SAMEORIGIN"> 
 	<title>casabaldini {{urlx}}</title>
 
@@ -35,4 +166,4 @@
 	</marquee>	
 	{% endblock content %}
 </body>	
-</html>
+</html>-->
