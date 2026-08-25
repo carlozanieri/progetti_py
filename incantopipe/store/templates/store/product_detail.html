@@ -1,26 +1,128 @@
-<!-- store/templates/store/product_detail.html -->
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}{{ product.name }} - InCantoPipe{% endblock %}
 
 {% block content %}
-<div class="row my-5">
+<div class="row my-4">
     <div class="col-md-6">
+        <!-- Immagine principale -->
         {% if product.image %}
-            <img src="{{ product.image.url }}" class="img-fluid rounded shadow" alt="{{ product.name }}">
+            <img src="{{ product.image.url }}" class="img-fluid rounded shadow mb-3" alt="{{ product.name }}">
+        {% else %}
+            <img src="{% static 'images/placeholder.jpg' %}" class="img-fluid rounded shadow mb-3" alt="{{ product.name }}">
         {% endif %}
-    </div>
-    <div class="col-md-6">
-        <h1>{{ product.name }}</h1>
-        <p class="lead">Pezzo Unico Artigianale</p>
-        <p>{{ product.description }}</p>
-        <div class="d-flex align-items-center justify-content-between">
-            <span class="display-6">€ {{ product.price }}</span>
-            <form action="{% url 'cart_add' product.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary btn-lg">Aggiungi al Carrello</button>
-            </form>
+        
+        <!-- Galleria immagini -->
+        <div class="row">
+            {% if product.image_2 %}
+                <div class="col-3">
+                    <img src="{{ product.image_2.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+                </div>
+            {% endif %}
+            {% if product.image_3 %}
+                <div class="col-3">
+                    <img src="{{ product.image_3.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+                </div>
+            {% endif %}
+            {% if product.image_4 %}
+                <div class="col-3">
+                    <img src="{{ product.image_4.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+                </div>
+            {% endif %}
         </div>
     </div>
+    
+    <div class="col-md-6">
+        <h1 class="display-5">{{ product.name }}</h1>
+        
+        {% if product.is_unique %}
+            <span class="badge bg-warning text-dark mb-2">Pezzo Unico</span>
+        {% endif %}
+        
+        <p class="lead">{{ product.description }}</p>
+        
+        <div class="card mb-3">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Caratteristiche</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li><strong>Materiale:</strong> {{ product.get_material_display }}</li>
+                            <li><strong>Finitura:</strong> {{ product.get_finish_display }}</li>
+                            <li><strong>Forma:</strong> {{ product.get_shape_display }}</li>
+                            {% if product.filter %}
+                                <li><strong>Filtro:</strong> {{ product.filter_size }} mm</li>
+                            {% else %}
+                                <li><strong>Filtro:</strong> No</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            {% if product.length_mm %}
+                                <li><strong>Lunghezza:</strong> {{ product.length_mm }} mm</li>
+                            {% endif %}
+                            {% if product.height_mm %}
+                                <li><strong>Altezza:</strong> {{ product.height_mm }} mm</li>
+                            {% endif %}
+                            {% if product.bowl_diameter_mm %}
+                                <li><strong>Diametro fornello:</strong> {{ product.bowl_diameter_mm }} mm</li>
+                            {% endif %}
+                            {% if product.weight_grams %}
+                                <li><strong>Peso:</strong> {{ product.weight_grams }} gr</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <span class="display-6 text-primary">€ {{ product.price }}</span>
+            {% if product.is_in_stock %}
+                <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        Aggiungi al Carrello
+                    </button>
+                </form>
+            {% else %}
+                <span class="badge bg-secondary fs-5">Venduta</span>
+            {% endif %}
+        </div>
+        
+        {% if product.year_made %}
+            <p class="text-muted">
+                <small>Realizzata nel {{ product.year_made }}</small>
+            </p>
+        {% endif %}
+    </div>
 </div>
+
+<!-- Pipe correlate -->
+{% if related_products %}
+<div class="row mt-5">
+    <div class="col-12">
+        <h3>Potrebbero interessarti anche</h3>
+    </div>
+    {% for related in related_products %}
+        <div class="col-md-3 mb-3">
+            <div class="card h-100 shadow-sm">
+                {% if related.image %}
+                    <img src="{{ related.image.url }}" class="card-img-top" alt="{{ related.name }}" style="height: 150px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h6 class="card-title">{{ related.name }}</h6>
+                    <p class="card-text"><strong>€ {{ related.price }}</strong></p>
+                    <a href="{% url 'store:product_detail' related.slug %}" class="btn btn-sm btn-outline-primary">
+                        Vedi dettagli
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
 {% endblock %}

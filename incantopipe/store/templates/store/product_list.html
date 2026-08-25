@@ -1,42 +1,204 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Le Nostre Pipe - InCantoPipe{% endblock %}
+{% block title %}Catalogo Pipe - InCantoPipe{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-12 text-center my-5">
+<div class="row mb-4">
+    <div class="col-12 text-center">
         <h1 class="display-4">Le Nostre Pipe Artigianali</h1>
-        <p class="lead">Realizzate a mano nel Canto alla Brina</p>
+        <p class="lead">Ogni pipe è un pezzo unico, realizzato a mano con passione</p>
     </div>
 </div>
 
 <div class="row">
-    {% for product in products %}
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+    <!-- Sidebar con filtri -->
+    <div class="col-md-3">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Categorie</h5>
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="{% url 'store:product_list' %}" 
+                   class="list-group-item list-group-item-action {% if not category %}active{% endif %}">
+                    Tutte le pipe
+                </a>
+                {% for c in categories %}
+                    <a href="{% url 'store:category_products' c.slug %}" 
+                       class="list-group-item list-group-item-action {% if category == c %}active{% endif %}">
+                        {{ c.name }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Filtri -->
+        <form method="get" class="card shadow-sm mb-4">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Filtri</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Materiale</label>
+                    <select name="material" class="form-select">
+                        <option value="">Tutti</option>
+                        {% for value, label in material_choices %}
+                            <option value="{{ value }}" {% if current_material == value %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Finitura</label>
+                    <select name="finish" class="form-select">
+                        <option value="">Tutte</option>
+                        {% for value, label in finish_choices %}
+                            <option value="{{ value }}" {% if current_finish == value %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Forma</label>
+                    <select name="shape" class="form-select">
+                        <option value="">Tutte</option>
+                        {% for value, label in shape_choices %}
+                            <option value="{{ value }}" {% if current_shape == value %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100">Applica filtri</button>
+                {% if current_material or current_finish or current_shape %}
+                    <a href="{% url 'store:product_list' %}" class="btn btn-outline-secondary w-100 mt-2">
+                        Pulisci filtri
+                    </a>
                 {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">{{ product.description|truncatewords:15 }}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="h4 mb-0">€ {{ product.price }}</span>
-                        <div>
-                            <a href="{% url 'product_detail' product.slug %}" class="btn btn-outline-primary">Dettagli</a>
-                            <form action="{% url 'cart_add' product.id %}" method="post" class="d-inline">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary">Aggiungi</button>
-                            </form>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Lista prodotti -->
+    <div class="col-md-9">
+        <!-- Barra ricerca e ordinamento -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <form method="get" class="d-flex">
+                    {% if category %}
+                        <input type="hidden" name="category" value="{{ category.slug }}">
+                    {% endif %}
+                    <input type="text" name="search" class="form-control me-2" 
+                           placeholder="Cerca pipe..." value="{{ search_query }}">
+                    <button type="submit" class="btn btn-outline-primary">Cerca</button>
+                </form>
+            </div>
+            <div class="col-md-6 text-end">
+                <select id="sortSelect" class="form-select" onchange="location.href=this.value">
+                    <option value="?sort=-created" {% if sort == '-created' %}selected{% endif %}>
+                        Più recenti
+                    </option>
+                    <option value="?sort=price_asc" {% if sort == 'price_asc' %}selected{% endif %}>
+                        Prezzo: dal più basso
+                    </option>
+                    <option value="?sort=price_desc" {% if sort == 'price_desc' %}selected{% endif %}>
+                        Prezzo: dal più alto
+                    </option>
+                    <option value="?sort=name" {% if sort == 'name' %}selected{% endif %}>
+                        Nome A-Z
+                    </option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Griglia prodotti -->
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                            <img src="{% static 'images/placeholder.jpg' %}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text text-muted small mb-2">
+                                {{ product.get_material_display }} - {{ product.get_finish_display }}
+                            </p>
+                            <p class="card-text flex-grow-1">{{ product.description|truncatewords:20 }}</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="h5 mb-0">€ {{ product.price }}</span>
+                                <div>
+                                    <a href="{% url 'store:product_detail' product.slug %}" 
+                                       class="btn btn-outline-primary btn-sm">Dettagli</a>
+                                    {% if product.is_in_stock %}
+                                        <form action="{% url 'cart:cart_add' product.id %}" method="post" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                <i class="bi bi-cart-plus"></i>
+                                            </button>
+                                        </form>
+                                    {% else %}
+                                        <span class="badge bg-secondary">Venduta</span>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% empty %}
+                <div class="col-12 text-center py-5">
+                    <h3>Nessuna pipe trovata</h3>
+                    <p class="text-muted">Prova a modificare i filtri o la ricerca</p>
+                    <a href="{% url 'store:product_list' %}" class="btn btn-primary">
+                        Vedi tutte le pipe
+                    </a>
+                </div>
+            {% endfor %}
         </div>
-    {% empty %}
-        <div class="col-12 text-center">
-            <p>Nessuna pipe disponibile al momento.</p>
-        </div>
-    {% endfor %}
+        
+        <!-- Paginazione -->
+        {% if products.has_other_pages %}
+            <nav aria-label="Paginazione" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    {% if products.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ products.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}">
+                                Precedente
+                            </a>
+                        </li>
+                    {% endif %}
+                    
+                    {% for num in products.paginator.page_range %}
+                        {% if products.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                        {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}{% if search_query %}&search={{ search_query }}{% endif %}">
+                                    {{ num }}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if products.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ products.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}">
+                                Successiva
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

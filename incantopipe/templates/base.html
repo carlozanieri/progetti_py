@@ -32,10 +32,7 @@
                             <a class="nav-link" href="{% url 'orders:order_history' %}">I miei ordini</a>
                         </li>
                         <li class="nav-item">
-                            <form action="{% url 'logout' %}" method="post" class="d-inline">
-                                {% csrf_token %}
-                                <button type="submit" class="nav-link btn btn-link">Logout</button>
-                            </form>
+                          
                         </li>
                     {% else %}
                         <li class="nav-item">
