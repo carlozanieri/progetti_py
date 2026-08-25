@@ -1,0 +1,95 @@
+<!-- templates/payment/process.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3>Riepilogo Ordine #{{ order.id }}</h3>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Prodotto</th>
+                            <th>Quantità</th>
+                            <th>Prezzo</th>
+                            <th>Totale</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items.all %}
+                            <tr>
+                                <td>{{ item.product.name }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>€ {{ item.price }}</td>
+                                <td>€ {{ item.get_cost }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"><strong>Totale</strong></td>
+                            <td><strong>€ {{ order.total }}</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                
+                <div id="paypal-button-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency=EUR"></script>
+<script>
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            // Crea l'ordine sul tuo server
+            return fetch('/payment/create-paypal-order/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(order) {
+                return order.id;
+            });
+        },
+        onApprove: function(data, actions) {
+            // Cattura il pagamento
+            return fetch('/payment/capture-paypal-order/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({
+                    orderID: data.orderID
+                })
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(details) {
+                if (details.redirect_url) {
+                    window.location.href = details.redirect_url;
+                }
+            });
+        },
+        onCancel: function(data) {
+            window.location.href = '/payment/cancel/';
+        },
+        onError: function(err) {
+            alert('Errore durante il pagamento');
+        }
+    }).render('#paypal-button-container');
+</script>
+{% endblock %}

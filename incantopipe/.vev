@@ -1,0 +1,18 @@
+# .env
+SECRET_KEY="django-insecure-s)8)#o9mzev5aa3hxd8%d&+w)rqzq$bp=blxeqomwrok%b(3#7"
+DEBUG=True
+
+DB_NAME=incanto
+DB_USER=postgres
+DB_PASSWORD=treX39
+DB_HOST=carlozanieri.eu
+DB_PORT=5432
+
+PAYPAL_CLIENT_ID=carlo.zanieri@gmail.com
+PAYPAL_SECRET=n1305D1008
+PAYPAL_MODE=sandbox
+
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_HOST_USER=carlo.zanieri@gmail.com
+EMAIL_HOST_PASSWORD=n1305D1008
