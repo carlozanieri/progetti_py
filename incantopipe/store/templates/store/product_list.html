@@ -1,46 +1,42 @@
-<!-- store/templates/store/product_list.html -->
 {% extends 'base.html' %}
 
-{% block title %}InCantoPipe - Pipe Artigianali{% endblock %}
+{% block title %}Le Nostre Pipe - InCantoPipe{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-12 text-center my-5">
-            <h1 class="display-4">Le Nostre Pipe Artigianali</h1>
-            <p class="lead">Realizzate a mano nel Canto alla Brina</p>
-        </div>
+<div class="row">
+    <div class="col-12 text-center my-5">
+        <h1 class="display-4">Le Nostre Pipe Artigianali</h1>
+        <p class="lead">Realizzate a mano nel Canto alla Brina</p>
     </div>
-    
-    <div class="row">
-        {% for product in products %}
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    {% if product.image %}
-                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text text-muted">{{ product.material }} - {{ product.finish }}</p>
-                        <p class="card-text">{{ product.description|truncatewords:15 }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="h4 mb-0">€ {{ product.price }}</span>
-                            <div>
-                                <a href="{% url 'store:product_detail' product.slug %}" class="btn btn-outline-primary">Dettagli</a>
-                                <form action="{% url 'cart:cart_add' product.id %}" method="post" class="d-inline">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-primary">Aggiungi</button>
-                                </form>
-                            </div>
+</div>
+
+<div class="row">
+    {% for product in products %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description|truncatewords:15 }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h4 mb-0">€ {{ product.price }}</span>
+                        <div>
+                            <a href="{% url 'product_detail' product.slug %}" class="btn btn-outline-primary">Dettagli</a>
+                            <form action="{% url 'cart_add' product.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Aggiungi</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        {% empty %}
-            <div class="col-12 text-center">
-                <p>Nessuna pipe disponibile al momento.</p>
-            </div>
-        {% endfor %}
-    </div>
+        </div>
+    {% empty %}
+        <div class="col-12 text-center">
+            <p>Nessuna pipe disponibile al momento.</p>
+        </div>
+    {% endfor %}
 </div>
 {% endblock %}

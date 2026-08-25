@@ -52,8 +52,8 @@ ROOT_URLCONF = 'incantopipe.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Lascia vuoto se usi solo i template delle app
-        'APP_DIRS': True,  # Questo deve essere True per trovare i template nelle app
+        'DIRS': [BASE_DIR / 'templates'],  # Aggiungi questa riga
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',

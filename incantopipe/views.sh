@@ -1,3 +1,7 @@
+#!/bin/bash
+
+# Aggiorna cart/views.py
+cat > cart/views.py << 'EOF'
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from store.models import Product
@@ -53,3 +57,6 @@ def cart_remove(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id)
     cart_item.delete()
     return redirect('cart:cart_detail')
+EOF
+
+echo "File cart/views.py aggiornato!"
