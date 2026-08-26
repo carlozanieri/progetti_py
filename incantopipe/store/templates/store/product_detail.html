@@ -84,8 +84,9 @@
             {% if product.is_in_stock %}
                 <form action="{% url 'cart:cart_add' product.id %}" method="post">
                     {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
                     <button type="submit" class="btn btn-primary btn-lg">
-                        Aggiungi al Carrello
+                        <i class="bi bi-cart-plus"></i> Aggiungi al Carrello
                     </button>
                 </form>
             {% else %}

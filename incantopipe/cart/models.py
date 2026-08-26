@@ -1,3 +1,4 @@
+# cart/models.py
 from django.db import models
 from django.conf import settings
 from store.models import Product
@@ -18,11 +19,16 @@ class Cart(models.Model):
     @property
     def total_items(self):
         return sum(item.quantity for item in self.items.all())
+    
+    class Meta:
+        verbose_name = 'Carrello'
+        verbose_name_plural = 'Carrelli'
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    added_at = models.DateTimeField(auto_now_add=True)
     
     @property
     def total_price(self):
@@ -30,3 +36,8 @@ class CartItem(models.Model):
     
     def __str__(self):
         return f"{self.quantity} x {self.product.name}"
+    
+    class Meta:
+        verbose_name = 'Articolo carrello'
+        verbose_name_plural = 'Articoli carrello'
+        unique_together = ['cart', 'product']  # Evita duplicati

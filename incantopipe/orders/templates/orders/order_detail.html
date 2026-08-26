@@ -1,0 +1,131 @@
+<!-- orders/templates/orders/order_detail.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ordine #{{ order.order_number }} - InCantoPipe{% endblock %}
+
+{% block content %}
+<div class="row my-4">
+    <div class="col-12">
+        <h1 class="display-4">Ordine #{{ order.order_number }}</h1>
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <!-- Articoli ordinati -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Articoli ordinati</h5>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Prodotto</th>
+                            <th>Prezzo</th>
+                            <th>Quantità</th>
+                            <th>Totale</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        {% if item.product.image %}
+                                            <img src="{{ item.product.image.url }}" 
+                                                 alt="{{ item.product_name }}" 
+                                                 style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
+                                        {% endif %}
+                                        <span>{{ item.product_name }}</span>
+                                    </div>
+                                </td>
+                                <td>€ {{ item.price }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>€ {{ item.get_cost }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"><strong>Totale</strong></td>
+                            <td><strong>€ {{ order.total }}</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Stato ordine -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Stato ordine</h5>
+            </div>
+            <div class="card-body">
+                <div class="progress" style="height: 30px;">
+                    {% if order.status == 'pending' %}
+                        <div class="progress-bar bg-warning" style="width: 25%">In attesa</div>
+                    {% elif order.status == 'paid' %}
+                        <div class="progress-bar bg-success" style="width: 50%">Pagato</div>
+                    {% elif order.status == 'shipped' %}
+                        <div class="progress-bar bg-info" style="width: 75%">Spedito</div>
+                    {% elif order.status == 'delivered' %}
+                        <div class="progress-bar bg-primary" style="width: 100%">Consegnato</div>
+                    {% elif order.status == 'cancelled' %}
+                        <div class="progress-bar bg-danger" style="width: 100%">Cancellato</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <!-- Informazioni spedizione -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Indirizzo di spedizione</h5>
+            </div>
+            <div class="card-body">
+                <p>
+                    {{ order.first_name }} {{ order.last_name }}<br>
+                    {{ order.address }}<br>
+                    {{ order.postal_code }} {{ order.city }} ({{ order.province }})<br>
+                    {{ order.country }}
+                </p>
+                {% if order.phone %}
+                    <p><strong>Tel:</strong> {{ order.phone }}</p>
+                {% endif %}
+                {% if order.shipping_notes %}
+                    <p><strong>Note:</strong> {{ order.shipping_notes }}</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Informazioni pagamento -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Informazioni pagamento</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Metodo:</strong> {{ order.get_payment_method_display }}</p>
+                {% if order.paypal_transaction_id %}
+                    <p><strong>Transazione:</strong> {{ order.paypal_transaction_id }}</p>
+                {% endif %}
+                <p><strong>Stato:</strong> {{ order.get_payment_status_display }}</p>
+            </div>
+        </div>
+        
+        {% if order.status == 'pending' %}
+            <form action="{% url 'orders:order_cancel' order.id %}" method="post" class="mt-3">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger w-100" 
+                        onclick="return confirm('Sei sicuro di voler cancellare questo ordine?')">
+                    Cancella ordine
+                </button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

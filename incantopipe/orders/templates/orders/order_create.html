@@ -1,0 +1,131 @@
+<!-- orders/templates/orders/order_create.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Checkout - InCantoPipe{% endblock %}
+
+{% block content %}
+<div class="row my-4">
+    <div class="col-12">
+        <h1 class="display-4">Checkout</h1>
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Form dati spedizione -->
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Dati di spedizione</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" id="orderForm">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="first_name" class="form-label">Nome *</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" 
+                                   value="{{ user.first_name }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="last_name" class="form-label">Cognome *</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" 
+                                   value="{{ user.last_name }}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email *</label>
+                            <input type="email" class="form-control" id="email" name="email" 
+                                   value="{{ user.email }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Telefono</label>
+                            <input type="tel" class="form-control" id="phone" name="phone">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Indirizzo *</label>
+                        <input type="text" class="form-control" id="address" name="address" 
+                               placeholder="Via, numero civico" required>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="postal_code" class="form-label">CAP *</label>
+                            <input type="text" class="form-control" id="postal_code" name="postal_code" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="city" class="form-label">Città *</label>
+                            <input type="text" class="form-control" id="city" name="city" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="province" class="form-label">Provincia</label>
+                            <input type="text" class="form-control" id="province" name="province" maxlength="2">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="shipping_notes" class="form-label">Note per la spedizione</label>
+                        <textarea class="form-control" id="shipping_notes" name="shipping_notes" rows="3"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        Procedi al pagamento
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Riepilogo ordine -->
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Riepilogo ordine</h5>
+            </div>
+            <div class="card-body">
+                {% for item in cart_items %}
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>{{ item.product.name }} x {{ item.quantity }}</span>
+                        <span>€ {{ item.total_price }}</span>
+                    </div>
+                {% endfor %}
+                
+                <hr>
+                
+                <div class="d-flex justify-content-between mb-2">
+                    <strong>Totale</strong>
+                    <strong class="text-primary">€ {{ cart.total_price }}</strong>
+                </div>
+                
+                <p class="text-muted small mt-3">
+                    <i class="bi bi-lock"></i> Pagamento sicuro con PayPal
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('orderForm').addEventListener('submit', function(e) {
+    // Validazione base
+    const requiredFields = ['first_name', 'last_name', 'email', 'address', 'postal_code', 'city'];
+    for (let field of requiredFields) {
+        const input = document.getElementById(field);
+        if (!input.value.trim()) {
+            e.preventDefault();
+            alert('Il campo ' + field.replace('_', ' ') + ' è obbligatorio.');
+            input.focus();
+            return;
+        }
+    }
+});
+</script>
+{% endblock %}
