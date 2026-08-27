@@ -1,0 +1,74 @@
+<!-- accounts/templates/accounts/profile_edit.html -->
+{% extends 'base.html' %}
+
+{% block title %}Modifica profilo - InCantoPipe{% endblock %}
+
+{% block content %}
+<div class="row my-4">
+    <div class="col-12">
+        <h1 class="display-4">Modifica profilo</h1>
+        <hr>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <h5>Informazioni personali</h5>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Nome</label>
+                            {{ user_form.first_name }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Cognome</label>
+                            {{ user_form.last_name }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Email</label>
+                            {{ user_form.email }}
+                        </div>
+                    </div>
+                    
+                    <h5>Dati di spedizione</h5>
+                    <div class="mb-3">
+                        <label class="form-label">Indirizzo</label>
+                        {{ profile_form.address }}
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">CAP</label>
+                            {{ profile_form.postal_code }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Città</label>
+                            {{ profile_form.city }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Provincia</label>
+                            {{ profile_form.province }}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Paese</label>
+                            {{ profile_form.country }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Telefono</label>
+                            {{ profile_form.phone }}
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Salva modifiche</button>
+                    <a href="{% url 'accounts:profile' %}" class="btn btn-outline-secondary">Annulla</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

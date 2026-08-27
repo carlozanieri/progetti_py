@@ -1,0 +1,64 @@
+<!-- accounts/templates/accounts/register.html -->
+{% extends 'base.html' %}
+
+{% block title %}Registrazione - InCantoPipe{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center my-5">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white text-center">
+                <h4 class="mb-0">Crea il tuo account</h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="first_name" class="form-label">Nome</label>
+                            <input type="text" name="first_name" id="first_name" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="last_name" class="form-label">Cognome</label>
+                            <input type="text" name="last_name" id="last_name" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" name="username" id="username" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password1" class="form-label">Password</label>
+                        <input type="password" name="password1" id="password1" class="form-control" required>
+                        <small class="text-muted">Minimo 8 caratteri, non può essere solo numerica.</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password2" class="form-label">Conferma Password</label>
+                        <input type="password" name="password2" id="password2" class="form-control" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 mb-3">
+                        Registrati
+                    </button>
+                </form>
+                
+                <hr>
+                
+                <p class="text-center mb-0">
+                    Hai già un account? 
+                    <a href="{% url 'accounts:login' %}">Accedi</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

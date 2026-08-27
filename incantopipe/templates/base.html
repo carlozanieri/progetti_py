@@ -19,28 +19,55 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'cart:cart_detail' %}">
-                    <i class="bi bi-cart"></i> Carrello
-                    {% if request.session.cart_items %}
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'store:product_list' %}">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart:cart_detail' %}">
+                <i class="bi bi-cart"></i> Carrello
+                {% if request.session.cart_items %}
                     <span class="badge bg-primary">{{ request.session.cart_items }}</span>
-                    {% endif %}
-                    </a>
-                    </li>
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'orders:order_history' %}">I miei ordini</a>
-                        </li>
-                        <li class="nav-item">
-                          
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <P>ERRORE</P>
-                        </li>
-                    {% endif %}
-                </ul>
+                {% endif %}
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person"></i> {{ user.first_name|default:user.username }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">
+                    <i class="bi bi-person"></i> Il mio profilo
+                </a></li>
+                <li><a class="dropdown-item" href="{% url 'orders:order_history' %}">
+                    <i class="bi bi-receipt"></i> I miei ordini
+                </a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <form action="{% url 'accounts:logout' %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="dropdown-item">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:login' %}">
+                <i class="bi bi-box-arrow-in-right"></i> Login
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link btn btn-primary btn-sm ms-2" href="{% url 'accounts:register' %}">
+                Registrati
+            </a>
+        </li>
+    {% endif %}
+</ul>
             </div>
         </div>
     </nav>

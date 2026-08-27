@@ -1,0 +1,61 @@
+<!-- accounts/templates/accounts/profile.html -->
+{% extends 'base.html' %}
+
+{% block title %}Il mio profilo - InCantoPipe{% endblock %}
+
+{% block content %}
+<div class="row my-4">
+    <div class="col-12">
+        <h1 class="display-4">Il mio profilo</h1>
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Informazioni account</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Nome:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Data registrazione:</strong> {{ user.date_joined|date:"d/m/Y" }}</p>
+                
+                <a href="{% url 'accounts:profile_edit' %}" class="btn btn-primary btn-sm">
+                    Modifica profilo
+                </a>
+                <a href="{% url 'accounts:change_password' %}" class="btn btn-outline-secondary btn-sm">
+                    Cambia password
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Dati di spedizione</h5>
+            </div>
+            <div class="card-body">
+                {% if user.profile.address %}
+                    <p><strong>Indirizzo:</strong> {{ user.profile.address }}</p>
+                    <p><strong>CAP:</strong> {{ user.profile.postal_code }}</p>
+                    <p><strong>Città:</strong> {{ user.profile.city }}</p>
+                    <p><strong>Provincia:</strong> {{ user.profile.province }}</p>
+                    <p><strong>Paese:</strong> {{ user.profile.country }}</p>
+                    {% if user.profile.phone %}
+                        <p><strong>Telefono:</strong> {{ user.profile.phone }}</p>
+                    {% endif %}
+                {% else %}
+                    <p class="text-muted">Nessun indirizzo di spedizione salvato.</p>
+                    <a href="{% url 'accounts:profile_edit' %}" class="btn btn-primary">
+                        Aggiungi indirizzo
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

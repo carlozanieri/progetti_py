@@ -1,4 +1,3 @@
-# orders/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -72,9 +71,38 @@ def order_create(request):
         messages.success(request, f'Ordine #{order.order_number} creato con successo!')
         return redirect('payment:payment_process')
     
+    # Prepara i dati precompilati dal profilo utente
+    try:
+        user_profile = request.user.profile
+        initial_data = {
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
+            'email': request.user.email,
+            'phone': user_profile.phone,
+            'address': user_profile.address,
+            'postal_code': user_profile.postal_code,
+            'city': user_profile.city,
+            'province': user_profile.province,
+            'country': user_profile.country,
+        }
+    except:
+        # Se il profilo non esiste, usa i dati base dell'utente
+        initial_data = {
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
+            'email': request.user.email,
+            'phone': '',
+            'address': '',
+            'postal_code': '',
+            'city': '',
+            'province': '',
+            'country': 'Italia',
+        }
+    
     context = {
         'cart': cart,
         'cart_items': cart.items.select_related('product').all(),
+        'initial_data': initial_data,  # Dati precompilati per il form
     }
     return render(request, 'orders/order_create.html', context)
 
