@@ -49,21 +49,6 @@ CSRF_TRUSTED_ORIGINS += [
      'http://www.casabaldini.eu',
  ]
 
-# Security Settings per produzione
-if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    SECURE_HSTS_SECONDS = 31536000
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-else:
-    # Impostazioni per sviluppo
-    SECURE_SSL_REDIRECT = False
-    SESSION_COOKIE_SECURE = False
-    CSRF_COOKIE_SECURE = False
-
 INSTALLED_APPS = [
     "beb.apps.BebConfig",
     "django.contrib.admin",
