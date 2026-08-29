@@ -23,35 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-s)8)#o9mzev5aa3hxd8%d&+w)rqzq$bp=blxeqomwrok%b(3#7"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# ALLOWED HOSTS - Domini consentiti
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[
-    'casabaldini.eu',
-    'www.casabaldini.eu',
-    'localhost',
-    '127.0.0.1',
-])
+DEBUG = True
+X_FRAME_OPTIONS = "SAMEORIGIN"
+ALLOWED_HOSTS = ['*']
 
-# CSRF Settings
-CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[
-    'https://casabaldini.eu',
-    'https://www.casabaldini.eu',
-    'http://casabaldini.eu',
-    'http://www.casabaldini.eu',
-])
-
-# Security Settings per produzione
-if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    SECURE_HSTS_SECONDS = 31536000  # 1 anno
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-else:
-    SECURE_SSL_REDIRECT = False
-    SESSION_COOKIE_SECURE = False
-    CSRF_COOKIE_SECURE = False
 
 # Application definition
 
