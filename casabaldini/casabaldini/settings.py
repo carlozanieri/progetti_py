@@ -109,7 +109,7 @@ WSGI_APPLICATION = "casabaldini.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'casabaldini',
+        'NAME': 'incanto',
         'USER': 'postgres',
         'PASSWORD': 'treX39',
         'HOST': '2.24.0.173',
