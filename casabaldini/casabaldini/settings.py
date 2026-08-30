@@ -112,7 +112,7 @@ DATABASES = {
         'NAME': 'casabaldini',
         'USER': 'carlo',
         'PASSWORD': 'treX39',
-        'HOST': '57.131.31.228',
+        'HOST': '2.24.0.173',
         'PORT': '5432',
     }
 }
