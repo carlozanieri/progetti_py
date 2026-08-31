@@ -35,7 +35,10 @@ CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[
 
 # Security Settings per produzione
 if not DEBUG:
-    SECURE_SSL_REDIRECT = True
+    # RIMUOVI SECURE_SSL_REDIRECT - Nginx gestisce il redirect HTTP->HTTPS
+    # SECURE_SSL_REDIRECT = True  # COMMENTA QUESTA RIGA
+    
+    # Queste impostazioni vanno bene
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -43,10 +46,9 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
 else:
-    SECURE_SSL_REDIRECT = False
-    SESSION_COOKIE_SECURE = False
-    CSRF_COOKIE_SECURE = False
-
+    # SESSION_COOKIE_SECURE = False  # Non necessario in sviluppo
+    # CSRF_COOKIE_SECURE = False  # Non necessario in sviluppo
+    pass
 
 # APPLICATIONS - Solo app, NON middleware
 INSTALLED_APPS = [
