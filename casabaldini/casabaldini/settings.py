@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-s)8)#o9mzev5aa3hxd8%d&+w)rqzq$bp=blxeqomwrok%b(3#7
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY
-SECRET_KEY = 'la-tua-chiave-segreta-qui'  # Sostituisci con la tua chiave
+SECRET_KEY = 'django-insecure-s)8)#o9mzev5aa3hxd8%d&+w)rqzq$bp=blxeqomwrok%b(3#7'  # Sostituisci con la tua chiave
 DEBUG = False  # Imposta a False in produzione
 
 # ALLOWED_HOSTS - Domini consentiti
