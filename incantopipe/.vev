@@ -6,7 +6,7 @@ CSRF_TRUSTED_ORIGINS=https://incantopipe.it,https://www.incantopipe.it,http://in
 DB_NAME=incanto
 DB_USER=postgres
 DB_PASSWORD=treX39
-DB_HOST=carlozanieri.eu
+DB_HOST=incantopipe.it
 DB_PORT=5432
 
 PAYPAL_CLIENT_ID=carlo.zanieri@gmail.com
