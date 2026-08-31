@@ -1,7 +1,5 @@
 # settings.py
 
-# settings.py
-
 import os
 from pathlib import Path
 import environ
@@ -11,43 +9,6 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 
-# Leggi il file .env
-BASE_DIR = Path(__file__).resolve().parent.parent
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-
-# SECURITY
-SECRET_KEY = env('SECRET_KEY')
-DEBUG = env('DEBUG', default=False)
-
-# ALLOWED HOSTS - Domini consentiti
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[
-    'incantopipe.it',
-    'www.incantopipe.it',
-    'localhost',
-    '127.0.0.1',
-])
-
-# CSRF Settings
-CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[
-    'https://incantopipe.it',
-    'https://www.incantopipe.it',
-    'http://incantopipe.it',
-    'http://www.incantopipe.it',
-])
-
-# Security Settings per produzione
-if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    SECURE_HSTS_SECONDS = 31536000  # 1 anno
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-else:
-    SECURE_SSL_REDIRECT = False
-    SESSION_COOKIE_SECURE = False
-    CSRF_COOKIE_SECURE = False
 # Leggi il file .env
 BASE_DIR = Path(__file__).resolve().parent.parent
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
