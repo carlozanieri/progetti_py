@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.urls import path
 from . import views
-from django.contrib import admin
+#from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
 from django.views.static import serve
-#app_name = "beb"
+app_name = "beb"
 
 urlpatterns = [
     path("", views.home, name="home"),
