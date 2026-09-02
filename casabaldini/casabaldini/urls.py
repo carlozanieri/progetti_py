@@ -36,5 +36,4 @@ if not settings.DEBUG:
     ]
 else:
     # In sviluppo, Django serve automaticamente da STATICFILES_DIRS
-    #from django.conf.urls.static import static
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
