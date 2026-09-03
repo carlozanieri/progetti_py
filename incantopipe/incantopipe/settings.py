@@ -169,3 +169,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Per sviluppo
 LOGIN_REDIRECT_URL = 'store:product_list'
 LOGOUT_REDIRECT_URL = 'store:product_list'
 LOGIN_URL = 'login'
+
+# PAYPAL SETTINGS
+PAYPAL_CLIENT_ID = env('PAYPAL_CLIENT_ID', default='')
+PAYPAL_SECRET = env('PAYPAL_SECRET', default='')
+PAYPAL_MODE = env('PAYPAL_MODE', default='sandbox')  # 'sandbox' o 'live'
+
+# URL base per PayPal API
+if PAYPAL_MODE == 'sandbox':
+    PAYPAL_API_URL = 'https://api-m.sandbox.paypal.com'
+else:
+    PAYPAL_API_URL = 'https://api-m.paypal.com'

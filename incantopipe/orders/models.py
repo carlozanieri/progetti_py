@@ -136,3 +136,33 @@ class OrderItem(models.Model):
     
     def get_cost(self):
         return self.price * self.quantity
+
+    # orders/models.py - aggiungi questo modello
+
+class PaymentTransaction(models.Model):
+    """Registra le transazioni PayPal"""
+    STATUS_CHOICES = [
+        ('created', 'Creata'),
+        ('approved', 'Approvata'),
+        ('completed', 'Completata'),
+        ('failed', 'Fallita'),
+        ('refunded', 'Rimborsata'),
+    ]
+    
+    order = models.ForeignKey(Order, related_name='transactions', on_delete=models.CASCADE)
+    paypal_order_id = models.CharField(max_length=100, unique=True, verbose_name='ID ordine PayPal')
+    paypal_transaction_id = models.CharField(max_length=100, blank=True, verbose_name='ID transazione PayPal')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='created', verbose_name='Stato')
+    amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Importo')
+    currency = models.CharField(max_length=3, default='EUR', verbose_name='Valuta')
+    payer_email = models.EmailField(blank=True, verbose_name='Email pagatore')
+    payer_name = models.CharField(max_length=200, blank=True, verbose_name='Nome pagatore')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = 'Transazione PayPal'
+        verbose_name_plural = 'Transazioni PayPal'
+    
+    def __str__(self):
+        return f'Transazione {self.paypal_order_id}'

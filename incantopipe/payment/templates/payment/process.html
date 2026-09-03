@@ -1,12 +1,22 @@
 <!-- templates/payment/process.html -->
+<!-- payment/templates/payment/process.html -->
 {% extends 'base.html' %}
 
+{% block title %}Pagamento - InCantoPipe{% endblock %}
+
 {% block content %}
-<div class="row justify-content-center">
+<div class="row my-4">
+    <div class="col-12">
+        <h1 class="display-4">Pagamento</h1>
+        <hr>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <h3>Riepilogo Ordine #{{ order.id }}</h3>
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Riepilogo Ordine #{{ order.order_number }}</h5>
             </div>
             <div class="card-body">
                 <table class="table">
@@ -21,7 +31,7 @@
                     <tbody>
                         {% for item in order.items.all %}
                             <tr>
-                                <td>{{ item.product.name }}</td>
+                                <td>{{ item.product_name }}</td>
                                 <td>{{ item.quantity }}</td>
                                 <td>€ {{ item.price }}</td>
                                 <td>€ {{ item.get_cost }}</td>
@@ -35,8 +45,30 @@
                         </tr>
                     </tfoot>
                 </table>
-                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Pagamento con PayPal</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Clicca il pulsante qui sotto per procedere al pagamento sicuro con PayPal.</p>
                 <div id="paypal-button-container"></div>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6>Indirizzo di spedizione</h6>
+                <p class="mb-0">
+                    {{ order.first_name }} {{ order.last_name }}<br>
+                    {{ order.address }}<br>
+                    {{ order.postal_code }} {{ order.city }} ({{ order.province }})<br>
+                    {{ order.country }}
+                </p>
             </div>
         </div>
     </div>
@@ -47,8 +79,8 @@
 <script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency=EUR"></script>
 <script>
     paypal.Buttons({
+        // Crea l'ordine
         createOrder: function(data, actions) {
-            // Crea l'ordine sul tuo server
             return fetch('/payment/create-paypal-order/', {
                 method: 'POST',
                 headers: {
@@ -60,11 +92,19 @@
                 return response.json();
             })
             .then(function(order) {
+                if (order.error) {
+                    throw new Error(order.error);
+                }
                 return order.id;
+            })
+            .catch(function(error) {
+                console.error('Errore creazione ordine:', error);
+                alert('Errore nella creazione dell\'ordine PayPal');
             });
         },
+        
+        // Cattura il pagamento
         onApprove: function(data, actions) {
-            // Cattura il pagamento
             return fetch('/payment/capture-paypal-order/', {
                 method: 'POST',
                 headers: {
@@ -79,16 +119,27 @@
                 return response.json();
             })
             .then(function(details) {
-                if (details.redirect_url) {
+                if (details.success && details.redirect_url) {
                     window.location.href = details.redirect_url;
+                } else if (details.error) {
+                    alert('Errore nel pagamento: ' + details.error);
                 }
+            })
+            .catch(function(error) {
+                console.error('Errore cattura pagamento:', error);
+                alert('Errore nel processamento del pagamento');
             });
         },
+        
+        // Pagamento annullato
         onCancel: function(data) {
             window.location.href = '/payment/cancel/';
         },
+        
+        // Errore
         onError: function(err) {
-            alert('Errore durante il pagamento');
+            console.error('Errore PayPal:', err);
+            alert('Si è verificato un errore durante il pagamento. Riprova.');
         }
     }).render('#paypal-button-container');
 </script>
